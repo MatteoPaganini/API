@@ -10,6 +10,7 @@ import java.sql.SQLOutput;
 // video to load jar
 //https://www.youtube.com/watch?v=QAJ09o3Xl_0
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -84,7 +85,15 @@ public class ReadJson {
 
             String name = (String)jsonObject.get("name");
             String mass = (String)jsonObject.get("mass");
-            
+            String eyeColor = (String)jsonObject.get("eye_color");
+            String birthYear = (String)jsonObject.get("birth_year");
+
+            JSONArray starShips = (JSONArray)jsonObject.get("starships"); //casts JSONArray
+            int m = starShips.size();
+            for (int f = 0; f < m; ++f){
+                String test = (String) starShips.get(f);
+                System.out.println(test); //prints starShip links to dos Window
+            }
 
             org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("films");
             int n =   msg.size(); //(msg).length();
@@ -93,9 +102,14 @@ public class ReadJson {
                 System.out.println(test);
                 // System.out.println(person.getInt("key"));
             }
+
             String height= (String)jsonObject.get("height");
+
             System.out.println(name);
             System.out.println(mass);
+            System.out.println(eyeColor);
+            System.out.println(birthYear);
+           // System.out.println(starShips); //don't need this for assignment
         }
 
         catch (Exception e) {
