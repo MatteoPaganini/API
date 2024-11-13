@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -43,10 +44,10 @@ public class ReadJson {
 
     public void pull() throws ParseException {
         String output = "abc";
-        String totlaJson="";
+        String totlaJson= "";
         try {
 
-            URL url = new URL("https://swapi.dev/api/people/4/");
+            URL url = new URL("https://last-airbender-api.fly.dev/api/v1/characters/random");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -78,37 +79,59 @@ public class ReadJson {
 
         JSONParser parser = new JSONParser();
         //System.out.println(str);
-        org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) parser.parse(totlaJson); //JSONObject is same as the file that we looked at earlier
-        System.out.println(jsonObject); //print JSONObject
+        org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) parser.parse(totlaJson); //JSONObject is same as the file that we looked at earlier
+        System.out.println(jsonArray); //print JSONObject
 
         try {
 
-            String name = (String)jsonObject.get("name");
-            String mass = (String)jsonObject.get("mass");
-            String eyeColor = (String)jsonObject.get("eye_color");
-            String birthYear = (String)jsonObject.get("birth_year");
+            //Array array = (String)jsonArray.get();
 
-            JSONArray starShips = (JSONArray)jsonObject.get("starships"); //casts JSONArray
-            int m = starShips.size();
+//            String name = (String)jsonArray.get("name");
+//            String mass = (String)jsonArray.get("mass");
+//            String eyeColor = (String)jsonArray.get("eye_color");
+//            String birthYear = (String)jsonArray.get("birth_year");
+//
+//            JSONArray starShips = (JSONArray)jsonArray.get("starships"); //casts JSONArray
+
+            int m = jsonArray.size();
             for (int f = 0; f < m; ++f){
-                String test = (String) starShips.get(f);
-                System.out.println(test); //prints starShip links to dos Window
+                JSONObject test = (JSONObject) jsonArray.get(f); //gets the object from the array
+                System.out.println(test); //prints the object
+
+                String name = (String)test.get("name");
+                System.out.println(name);
+
+                String profession = (String)test.get("profession");
+                System.out.println(profession);
+
+                String gender = (String)test.get("gender");
+                System.out.println(gender);
+
+                //getting the array inside our original array
+
+                JSONArray allies = (JSONArray)jsonArray.get("allies");
+
+                int x = jsonObject.size();
+                for (int y = 0; y < x; ++y){
+                    String
+                }
+
             }
 
-            org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("films");
-            int n =   msg.size(); //(msg).length();
-            for (int i = 0; i < n; ++i) {
-                String test =(String) msg.get(i);
-                System.out.println(test);
-                // System.out.println(person.getInt("key"));
-            }
+//            org.json.simple.JSONArray msg = (org.json.simple.JSONArray) JSONArray.get("films");
+//            int n =   msg.size(); //(msg).length();
+//            for (int i = 0; i < n; ++i) {
+//                String test =(String) msg.get(i);
+//                System.out.println(test);
+//                System.out.println(person.getInt("key"));
+//            }
 
-            String height= (String)jsonObject.get("height");
+            //Array array1= JSONArray.JSONObject.get;
 
-            System.out.println(name);
-            System.out.println(mass);
-            System.out.println(eyeColor);
-            System.out.println(birthYear);
+//            System.out.println(name);
+//            System.out.println(mass);
+//            System.out.println(eyeColor);
+//            System.out.println(birthYear);
            // System.out.println(starShips); //don't need this for assignment
         }
 
