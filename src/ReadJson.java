@@ -47,7 +47,7 @@ public class ReadJson {
         String totlaJson= "";
         try {
 
-            URL url = new URL("https://last-airbender-api.fly.dev/api/v1/characters/random");
+            URL url = new URL("https://last-airbender-api.fly.dev/api/v1/characters");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -107,16 +107,25 @@ public class ReadJson {
                 String gender = (String)test.get("gender");
                 System.out.println(gender);
 
-                //getting the array inside our original array
+                //getting the array inside our original array using test variable
 
-                JSONArray allies = (JSONArray)jsonArray.get("allies");
+                JSONArray allies = (JSONArray)test.get("allies");
 
-                int x = jsonObject.size();
+                int x = allies.size();
                 for (int y = 0; y < x; ++y){
-                    String
+                    String ally = (String) allies.get(y); //new variable for string called "ally"
+                    System.out.println(ally);
                 }
 
-            }
+                JSONArray enemies = (JSONArray)test.get("enemies");
+
+                int a = enemies.size();
+                for (int b = 0; b < a; ++b){
+                    String enemy = (String) enemies.get(b); //new variable for string called "enemy"
+                    System.out.println(enemy);
+                }
+
+            } //prints out null if any of the JSON Arrays or Objects are not present in the API
 
 //            org.json.simple.JSONArray msg = (org.json.simple.JSONArray) JSONArray.get("films");
 //            int n =   msg.size(); //(msg).length();
