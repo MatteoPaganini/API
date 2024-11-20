@@ -1,3 +1,4 @@
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,7 +26,13 @@ public class Layout implements ActionListener {
     private JTextArea ta; //typing area
     private int WIDTH = 800;
     private int HEIGHT = 700;
+    private JScrollPane scrollPane1;
+    private JScrollPane scrollPane2;
+    private JScrollPane scrollPane3;
 
+    JTextArea ta1 = new JTextArea("Text Area 1");
+    JTextArea ta2 = new JTextArea("Text Area 2");
+    JTextArea ta3 = new JTextArea("Text Area 3");
 
     public Layout() {
         prepareGUI();
@@ -66,6 +73,10 @@ public class Layout implements ActionListener {
 
         mainFrame.setJMenuBar(mb); //set menu bar
 
+        scrollPane1 = new JScrollPane(ta1);
+        scrollPane2 = new JScrollPane(ta2);
+        scrollPane3 = new JScrollPane(ta3);
+
         mainFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent) {
                 System.exit(0);
@@ -89,12 +100,8 @@ public class Layout implements ActionListener {
         JButton button3 = new JButton("Extra Button 2");
         JButton button4 = new JButton("Next");
 
-        JTextArea ta1 = new JTextArea("Text Area 1");
-        JTextArea ta2 = new JTextArea("Text Area 2");
-        JTextArea ta3 = new JTextArea("Text Area 3");
-
-        button2.setActionCommand("Button 2");
-        button4.setActionCommand("Button 4");
+        button2.setActionCommand("Back");
+        button4.setActionCommand("Next");
 
         // labels don't need ActionCommand or ActionListener
         button2.addActionListener(new ButtonClickListener());
@@ -103,9 +110,9 @@ public class Layout implements ActionListener {
         controlPanel.add(button2);
         controlPanel.add(label1); //label
         controlPanel.add(button4);
-        controlPanel.add(ta1);
-        controlPanel.add(ta2);
-        controlPanel.add(ta3);
+        controlPanel.add(scrollPane1);
+        controlPanel.add(scrollPane2);
+        controlPanel.add(scrollPane3);
         mainFrame.add(button1, BorderLayout.NORTH);
         mainFrame.add(button3, BorderLayout.SOUTH);
 
@@ -128,7 +135,7 @@ public class Layout implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
 
-            if (command.equals("Button 2")){
+            if (command.equals("Next")){
                 try {
                     pull();
                 } catch (ParseException ex) {
@@ -205,40 +212,36 @@ public class Layout implements ActionListener {
                 System.out.println(test); //prints the object
 
                 String name = (String)test.get("name");
-                System.out.println(name);
+                System.out.println(name); //prints to dos
+                ta1.append((name) + "\n"); //appends to textArea1
 
                 String profession = (String)test.get("profession");
                 System.out.println(profession);
+                ta2.append((profession) + "\n");
 
                 String gender = (String)test.get("gender");
                 System.out.println(gender);
 
                 //getting the array inside our original array
 
-                //JSONArray allies = (JSONArray)jsonArray.get("allies");
+                JSONArray allies = (JSONArray)test.get("allies");
 
-//                int x = jsonObject.size();
-//                for (int y = 0; y < x; ++y){
-//                    String
-//                }
+                int x = allies.size();
+                for (int y = 0; y < x; ++y){
+                    String ally = (String) allies.get(y); //new variable for string called "ally"
+                    System.out.println(ally);
+                }
+
+                JSONArray enemies = (JSONArray)test.get("enemies");
+
+                int a = enemies.size();
+                for (int b = 0; b < a; ++b){
+                    String enemy = (String) enemies.get(b); //new variable for string called "enemy"
+                    System.out.println(enemy);
+                }
 
             }
 
-//            org.json.simple.JSONArray msg = (org.json.simple.JSONArray) JSONArray.get("films");
-//            int n =   msg.size(); //(msg).length();
-//            for (int i = 0; i < n; ++i) {
-//                String test =(String) msg.get(i);
-//                System.out.println(test);
-//                System.out.println(person.getInt("key"));
-//            }
-
-            //Array array1= JSONArray.JSONObject.get;
-
-//            System.out.println(name);
-//            System.out.println(mass);
-//            System.out.println(eyeColor);
-//            System.out.println(birthYear);
-            // System.out.println(starShips); //don't need this for assignment
         }
 
         catch (Exception e) {
