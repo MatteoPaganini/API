@@ -30,9 +30,11 @@ public class Layout implements ActionListener {
     private JScrollPane scrollPane2;
     private JScrollPane scrollPane3;
 
-    JTextArea ta1 = new JTextArea("Text Area 1");
-    JTextArea ta2 = new JTextArea("Text Area 2");
-    JTextArea ta3 = new JTextArea("Text Area 3");
+    int tracker = 0;
+
+    JTextArea ta1 = new JTextArea("Text Area 1: " + "\n");
+    JTextArea ta2 = new JTextArea("Text Area 2: " + "\n");
+    JTextArea ta3 = new JTextArea("Text Area 3: " + "\n");
 
     public Layout() {
         prepareGUI();
@@ -136,6 +138,18 @@ public class Layout implements ActionListener {
             String command = e.getActionCommand();
 
             if (command.equals("Next")){
+                tracker = tracker + 1;
+
+                try {
+                    pull();
+                } catch (ParseException ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            if (command.equals("Back")){
+                tracker = tracker - 1;
+
                 try {
                     pull();
                 } catch (ParseException ex) {
@@ -207,8 +221,8 @@ public class Layout implements ActionListener {
 //            JSONArray starShips = (JSONArray)jsonArray.get("starships"); //casts JSONArray
 
             int m = jsonArray.size();
-            for (int f = 0; f < m; ++f){
-                JSONObject test = (JSONObject) jsonArray.get(f); //gets the object from the array
+            //for (int f = 0; f < m; ++f){
+                JSONObject test = (JSONObject) jsonArray.get(tracker); //gets the object from the array
                 System.out.println(test); //prints the object
 
                 String name = (String)test.get("name");
@@ -217,7 +231,7 @@ public class Layout implements ActionListener {
 
                 String profession = (String)test.get("profession");
                 System.out.println(profession);
-                ta2.append((profession) + "\n");
+                //ta2.append((profession) + "\n");
 
                 String gender = (String)test.get("gender");
                 System.out.println(gender);
@@ -230,6 +244,7 @@ public class Layout implements ActionListener {
                 for (int y = 0; y < x; ++y){
                     String ally = (String) allies.get(y); //new variable for string called "ally"
                     System.out.println(ally);
+                    ta2.append(ally + "\n");
                 }
 
                 JSONArray enemies = (JSONArray)test.get("enemies");
@@ -238,9 +253,10 @@ public class Layout implements ActionListener {
                 for (int b = 0; b < a; ++b){
                     String enemy = (String) enemies.get(b); //new variable for string called "enemy"
                     System.out.println(enemy);
+                    ta3.append(enemy + "\n");
                 }
 
-            }
+            //}
 
         }
 
